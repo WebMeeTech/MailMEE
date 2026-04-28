@@ -1,5 +1,5 @@
 {
-  "name": "webmee-email",
+  "name": "mailmee",
   "version": "1.0.0",
   "description": "Plug-and-play email sending for Webmee services — template engine, multi-provider support, NestJS integration",
   "main": "dist/index.js",
