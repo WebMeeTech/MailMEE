@@ -1,4 +1,5 @@
 export * from './email-sender';
+export * from './email-type-dispatcher';
 
 import { EmailSender } from './email-sender';
 import { WebmeeEmailOptions } from '../types/email.types';

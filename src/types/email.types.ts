@@ -149,3 +149,35 @@ export interface IEmailSender {
   sendSendGridTemplate(options: SendSendGridTemplateOptions): Promise<SendEmailResult>;
   getActiveProvider(): string;
 }
+
+// ─── Email Type Map (app-level pattern) ─────────────────────────────────────
+//
+// Each Webmee app defines its own EmailTypeMap that maps every EmailType value
+// it uses to a send configuration. The `createEmailTypeDispatcher` factory
+// (see core) consumes this map and returns a single typed dispatch function.
+
+/**
+ * One entry in an app's email type map.
+ * - `envVar`          – name of the env var that holds the SendGrid dynamic
+ *                       template ID. When set and the env var is non-empty,
+ *                       the SendGrid template is used; otherwise the inline
+ *                       Handlebars fallback fires.
+ * - `fallbackSubject` – Handlebars subject string used when no template ID.
+ * - `fallbackHtml`    – Handlebars HTML body used when no template ID.
+ * - `categories`      – SendGrid category labels for filtering / analytics.
+ */
+export interface EmailTypeMapEntry {
+  envVar?: string;
+  fallbackSubject: string;
+  fallbackHtml: string;
+  categories: string[];
+}
+
+/**
+ * Full map for an app — every email type value the app sends must have an
+ * entry here. Use a `const` assertion on the key type for strict checking.
+ *
+ * @example
+ * const MY_MAP: AppEmailTypeMap<MyEmailTypeValue> = { ... }
+ */
+export type AppEmailTypeMap<T extends string> = Record<T, EmailTypeMapEntry>;
