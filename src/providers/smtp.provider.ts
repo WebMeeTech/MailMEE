@@ -47,6 +47,11 @@ export class SmtpProvider implements IEmailProvider {
         subject: options.subject,
         html: options.html,
         text,
+        attachments: options.attachments?.map((a) => ({
+          filename: a.filename,
+          content: a.content,
+          contentType: a.contentType,
+        })),
       });
 
       return {

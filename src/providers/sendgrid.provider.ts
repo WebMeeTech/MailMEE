@@ -9,6 +9,13 @@ interface SendGridPersonalization {
   dynamic_template_data?: Record<string, any>;
 }
 
+interface SendGridAttachment {
+  content: string; // base64
+  filename: string;
+  type: string;
+  disposition: 'attachment';
+}
+
 interface SendGridV3Body {
   personalizations: SendGridPersonalization[];
   from: { email: string; name?: string };
@@ -17,6 +24,7 @@ interface SendGridV3Body {
   custom_args?: Record<string, string>;
   categories?: string[];
   template_id?: string;
+  attachments?: SendGridAttachment[];
 }
 
 interface SendGridErrorResponse {
@@ -88,6 +96,15 @@ export class SendGridProvider implements IEmailProvider {
 
     if (options.categories?.length) {
       body.categories = options.categories.slice(0, 10); // SendGrid max is 10
+    }
+
+    if (options.attachments?.length) {
+      body.attachments = options.attachments.map((a) => ({
+        content: a.content.toString('base64'),
+        filename: a.filename,
+        type: a.contentType ?? 'application/octet-stream',
+        disposition: 'attachment',
+      }));
     }
 
     const url = `${this.apiHost}/v3/mail/send`;

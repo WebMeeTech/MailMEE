@@ -5,6 +5,15 @@ export interface EmailFrom {
   name?: string;
 }
 
+export interface EmailAttachment {
+  /** File name shown to the recipient, e.g. "tickets.pdf" */
+  filename: string;
+  /** Raw file bytes — each provider encodes/transports these as it needs */
+  content: Buffer;
+  /** MIME type, e.g. "application/pdf". Defaults to application/octet-stream. */
+  contentType?: string;
+}
+
 export interface SendEmailOptions {
   /** Recipient email address */
   to: string;
@@ -27,6 +36,8 @@ export interface SendEmailOptions {
   sendgridTemplateId?: string;
   /** Data passed into the SendGrid dynamic template */
   sendgridDynamicTemplateData?: Record<string, any>;
+  /** Files to attach to the email */
+  attachments?: EmailAttachment[];
 }
 
 export interface SendEmailResult {
@@ -116,6 +127,7 @@ export interface SendOptions {
   from?: EmailFrom;
   metadata?: Record<string, any>;
   categories?: string[];
+  attachments?: EmailAttachment[];
 }
 
 export interface SendTemplateOptions {
@@ -141,6 +153,7 @@ export interface SendSendGridTemplateOptions {
   data: Record<string, any>;
   from?: EmailFrom;
   categories?: string[];
+  attachments?: EmailAttachment[];
 }
 
 export interface IEmailSender {

@@ -47,6 +47,7 @@ export class EmailSender implements IEmailSender {
       from: options.from,
       metadata: options.metadata,
       categories: options.categories,
+      attachments: options.attachments,
     });
   }
 
@@ -100,6 +101,7 @@ export class EmailSender implements IEmailSender {
       categories: options.categories,
       sendgridTemplateId: options.templateId,
       sendgridDynamicTemplateData: options.data,
+      attachments: options.attachments,
     });
   }
 
