@@ -64,6 +64,7 @@ export class WebmeeEmailService {
       from: options.from,
       metadata: options.metadata,
       categories: options.categories,
+      attachments: options.attachments,
     });
   }
 
@@ -94,6 +95,7 @@ export class WebmeeEmailService {
       from: options.from,
       metadata: options.metadata,
       categories: options.categories,
+      attachments: options.attachments,
     });
   }
 
@@ -109,7 +111,7 @@ export class WebmeeEmailService {
     template: { subject: string; bodyHtml: string; bodyText?: string | null },
     context: Record<string, any>,
     to: string,
-    extras?: Pick<SendOptions, 'from' | 'metadata' | 'categories'>,
+    extras?: Pick<SendOptions, 'from' | 'metadata' | 'categories' | 'attachments'>,
   ): Promise<SendEmailResult> {
     const rendered = this.templateEngine.render(template, context);
 
@@ -121,6 +123,7 @@ export class WebmeeEmailService {
       from: extras?.from,
       metadata: extras?.metadata,
       categories: extras?.categories,
+      attachments: extras?.attachments,
     });
   }
 
@@ -144,6 +147,7 @@ export class WebmeeEmailService {
       categories: options.categories,
       sendgridTemplateId: options.templateId,
       sendgridDynamicTemplateData: options.data,
+      attachments: options.attachments,
     });
   }
 

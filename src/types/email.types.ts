@@ -143,6 +143,7 @@ export interface SendTemplateOptions {
   from?: EmailFrom;
   metadata?: Record<string, any>;
   categories?: string[];
+  attachments?: EmailAttachment[];
 }
 
 export interface SendSendGridTemplateOptions {
